@@ -1,4 +1,6 @@
 <?php
+include 'check-access.php'; // Check access for updating.
+
 $directory = dirname(__FILE__); // Абсолютный путь к директории
 $excludeFiles = array(basename(__FILE__), '.htaccess', 'check-access.php'); // Имена файлов, которые необходимо исключить
 $excludeFilesUpdate = array('.htaccess', 'check-access.php'); // Имена файлов, которые необходимо исключить при обновлении
