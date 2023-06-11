@@ -1,6 +1,7 @@
 <?php
 $directory = dirname(__FILE__); // Абсолютный путь к директории
-$excludeFiles = array(basename(__FILE__), '.htaccess'); // Имена файлов, которые необходимо исключить
+$excludeFiles = array(basename(__FILE__), '.htaccess', 'check-access.php'); // Имена файлов, которые необходимо исключить
+$excludeFilesUpdate = array('.htaccess', 'check-access.php'); // Имена файлов, которые необходимо исключить при обновлении
 
 // Получаем список всех файлов и подпапок в директории (рекурсивно)
 $files = new RecursiveIteratorIterator(
@@ -40,12 +41,15 @@ if ($zip->open($zipFile) === TRUE) {
         // Получаем относительный путь файла или директории
         $relativePath = substr($filename, strlen('mpt-journal-api-main/'));
 
-        // Создаем директории при их отсутствии
-        if (substr($filename, -1) === '/') {
-            mkdir($extractPath . '/' . $relativePath, 0777, true);
-        } else {
-            // Извлекаем файл
-            file_put_contents($extractPath . '/' . $relativePath, $zip->getFromIndex($i));
+        // Проверяем, что файл не является одним из исключаемых файлов
+        if (!in_array($relativePath, $excludeFilesUpdate)) {
+            // Создаем директории при их отсутствии
+            if (substr($filename, -1) === '/') {
+                mkdir($extractPath . '/' . $relativePath, 0777, true);
+            } else {
+                // Извлекаем файл
+                file_put_contents($extractPath . '/' . $relativePath, $zip->getFromIndex($i));
+            }
         }
     }
 
