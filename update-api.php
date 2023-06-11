@@ -38,7 +38,7 @@ if ($zip->open($zipFile) === TRUE) {
         $filename = $zip->getNameIndex($i);
 
         // Получаем относительный путь файла или директории
-        $relativePath = substr($filename, strlen('mpt-journal-main/'));
+        $relativePath = substr($filename, strlen('mpt-journal-api-main/'));
 
         // Создаем директории при их отсутствии
         if (substr($filename, -1) === '/') {
