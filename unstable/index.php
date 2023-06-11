@@ -14,7 +14,7 @@ $endpoint = $_GET['endpoint'];
 // Route the request to the appropriate endpoint
 switch ($endpoint) {
     case 'apiv':
-        echo "$apiv";
+        echo json_encode(array('apiv' => $apiv));
     break;
     // Add more cases for other endpoints specific to the unstable-beta version
     default:
